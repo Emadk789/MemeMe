@@ -20,9 +20,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var bottomToolBar: UIToolbar!
     
-    // MARK: Image picker controller
-    let imagePicker = UIImagePickerController();
-    
     // MARK: Text field deleget
     let textFieldDeleget = TextFieldDeleget();
     
@@ -33,12 +30,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSAttributedString.Key.strokeWidth:  -4.0
     ];
+    
+    // MARK: View did load
+    override func viewDidLoad() {
+        
+    }
     // MARK: View will appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         topTextField.defaultTextAttributes = memeTextAttributes;
+        topTextField.textAlignment = .center;
         bottomTextField.defaultTextAttributes = memeTextAttributes;
+        bottomTextField.textAlignment = .center;
         
         // Subscribing to get keyboard notifications
         subscribeToKeyboardNotifications();
@@ -59,11 +63,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: Album button
     @IBAction func albumButtonClicked(_ sender: Any) {
-        // Setting the delegate to self
-        imagePicker.delegate = (self as UIImagePickerControllerDelegate & UINavigationControllerDelegate);
-        imagePicker.sourceType = .photoLibrary;
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
+        setDeleget(withSourceType: .photoLibrary);
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -79,10 +79,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     // MARK: Camera button
     @IBAction func cameraButtonClicked(_ sender: Any) {
-        imagePicker.delegate = (self as UIImagePickerControllerDelegate & UINavigationControllerDelegate);
-        imagePicker.sourceType = .camera;
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
+        setDeleget(withSourceType: .camera);
+    }
+    // Refactor: common functionality between album and camera buttons
+    func setDeleget(withSourceType type: UIImagePickerController.SourceType) {
+        
+        // MARK: Image picker controller
+        let imagePicker = UIImagePickerController();
+        
+        imagePicker.delegate = self;
+        imagePicker.sourceType = type;
+        imagePicker.allowsEditing = true;
+        present(imagePicker, animated: true, completion: nil);
     }
     //    MARK: Setting up the deleget for the text fields
     @IBAction func textFieldClicked(_ sender: Any) {

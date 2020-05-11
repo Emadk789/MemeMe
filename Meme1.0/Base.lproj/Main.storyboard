@@ -48,8 +48,8 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cGz-Pg-WhX">
-                                <rect key="frame" x="173.5" y="114" width="28" height="18.5"/>
+                            <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cGz-Pg-WhX">
+                                <rect key="frame" x="16" y="114" width="343" height="18.5"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -59,7 +59,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XnQ-ip-Xwd">
-                                <rect key="frame" x="157.5" y="534" width="60" height="19"/>
+                                <rect key="frame" x="16" y="534" width="343" height="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -89,11 +89,14 @@
                         <constraints>
                             <constraint firstItem="ZAQ-5Z-5vl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5AB-iO-Uki"/>
                             <constraint firstItem="DbS-Ov-TdG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="6xu-7L-WLM"/>
+                            <constraint firstItem="XnQ-ip-Xwd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="7vA-OO-QDO"/>
+                            <constraint firstItem="cGz-Pg-WhX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="BRL-23-tkU"/>
                             <constraint firstItem="cGz-Pg-WhX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="I0o-ul-ENs"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZAQ-5Z-5vl" secondAttribute="trailing" id="OVI-OT-ShV"/>
                             <constraint firstItem="CiK-7j-aOC" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="QnD-j8-AVX"/>
                             <constraint firstItem="DbS-Ov-TdG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Txq-Ic-hun"/>
                             <constraint firstItem="XnQ-ip-Xwd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Wed-qG-97A"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cGz-Pg-WhX" secondAttribute="trailing" constant="16" id="Zln-nY-99I"/>
                             <constraint firstItem="CiK-7j-aOC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cYF-qk-B6K"/>
                             <constraint firstItem="ZAQ-5Z-5vl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="f8u-LQ-c5e"/>
                             <constraint firstItem="cGz-Pg-WhX" firstAttribute="top" secondItem="CiK-7j-aOC" secondAttribute="bottom" constant="70" id="gqM-If-NTE">
@@ -105,6 +108,7 @@
                             </constraint>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ZAQ-5Z-5vl" secondAttribute="bottom" constant="43" id="o4p-Gp-Vpv"/>
                             <constraint firstItem="CiK-7j-aOC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qUF-Fd-gUo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XnQ-ip-Xwd" secondAttribute="trailing" constant="16" id="uxm-ef-xlq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
