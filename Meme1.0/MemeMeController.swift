@@ -34,10 +34,9 @@ class MemeMeController: UIViewController, UIImagePickerControllerDelegate, UINav
     // MARK: View did load
     override func viewDidLoad() {
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera);
-        topTextField.defaultTextAttributes = memeTextAttributes;
-        topTextField.textAlignment = .center;
-        bottomTextField.defaultTextAttributes = memeTextAttributes;
-        bottomTextField.textAlignment = .center;
+        
+        configureMemeTextField(topTextField);
+        configureMemeTextField(bottomTextField);
         
         // Making bar buttons disabled.
         enableToolbarButtons(false);
@@ -57,6 +56,13 @@ class MemeMeController: UIViewController, UIImagePickerControllerDelegate, UINav
         
         // Unsubscribe from receiving keyboard notifications
         unsubscribeFromKeyboardNotifications()
+    }
+    // MARK: Configure meme text field
+    func configureMemeTextField(_ textField: UITextField){
+        textField.defaultTextAttributes = memeTextAttributes;
+        textField.textAlignment = .center;
+        textField.delegate = textFieldDeleget;
+//        bottomTextField.delegate = textFieldDeleget;
     }
     
     // MARK: Album button
@@ -90,15 +96,16 @@ class MemeMeController: UIViewController, UIImagePickerControllerDelegate, UINav
         present(imagePicker, animated: true, completion: nil);
     }
     //    MARK: Setting up the deleget for the text fields
-    @IBAction func textFieldClicked(_ sender: Any) {
-        topTextField.delegate = textFieldDeleget;
-        bottomTextField.delegate = textFieldDeleget;
-    }
+//    @IBAction func textFieldClicked(_ sender: Any) {
+//        
+//    }
     // MARK: Action button
     @IBAction func actionBarButtonClicked(_ sender: Any) {
         let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil);
         activityController.completionWithItemsHandler = { (type,completed,items,error) in
-            self.save();
+            if(completed){
+                self.save();
+            }
         }
         present(activityController, animated: true, completion: nil);
         
@@ -168,7 +175,7 @@ extension MemeMeController {
     }
     
     func save() {
-        // Create the meme
+        // Create the memes
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: memedImage);
     }
     
