@@ -61,8 +61,9 @@ class MemeMeController: UIViewController, UIImagePickerControllerDelegate, UINav
     func configureMemeTextField(_ textField: UITextField){
         textField.defaultTextAttributes = memeTextAttributes;
         textField.textAlignment = .center;
+        
+        //    MARK: Setting up the deleget for the text fields
         textField.delegate = textFieldDeleget;
-//        bottomTextField.delegate = textFieldDeleget;
     }
     
     // MARK: Album button
@@ -95,10 +96,6 @@ class MemeMeController: UIViewController, UIImagePickerControllerDelegate, UINav
         imagePicker.allowsEditing = true;
         present(imagePicker, animated: true, completion: nil);
     }
-    //    MARK: Setting up the deleget for the text fields
-//    @IBAction func textFieldClicked(_ sender: Any) {
-//        
-//    }
     // MARK: Action button
     @IBAction func actionBarButtonClicked(_ sender: Any) {
         let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil);
