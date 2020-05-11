@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MemeMeController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Outlets
     @IBOutlet weak var imageView: UIImageView!
@@ -25,32 +25,30 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Variable to set the attributes of the topTextField and bottomTextField outlets
     let memeTextAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.strokeColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1),
-        NSAttributedString.Key.foregroundColor: UIColor.white,
-        NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSAttributedString.Key.strokeWidth:  -4.0
+        .strokeColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1),
+        .foregroundColor: UIColor.white,
+        .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        .strokeWidth:  -4.0
     ];
     
     // MARK: View did load
     override func viewDidLoad() {
-        
-    }
-    // MARK: View will appear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated);
-        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera);
         topTextField.defaultTextAttributes = memeTextAttributes;
         topTextField.textAlignment = .center;
         bottomTextField.defaultTextAttributes = memeTextAttributes;
         bottomTextField.textAlignment = .center;
         
+        // Making bar buttons disabled.
+        enableToolbarButtons(false);
+        
+    }
+    // MARK: View will appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+
         // Subscribing to get keyboard notifications
         subscribeToKeyboardNotifications();
-        
-        // Making bar buttons disabled.
-        
-        toggleAny(actionBarButton ?? "");
-        toggleAny(cancelBarButton ?? "");
         
     }
     // MARK: View will disappear
@@ -74,8 +72,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             return
         }
         imageView.image = (info[.originalImage] as! UIImage);
-        toggleAny(actionBarButton ?? "");
-        toggleAny(cancelBarButton ?? "");
+        enableToolbarButtons(true);
     }
     // MARK: Camera button
     @IBAction func cameraButtonClicked(_ sender: Any) {
@@ -98,7 +95,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bottomTextField.delegate = textFieldDeleget;
     }
     // MARK: Action button
-    @IBAction func ActionBarButtonClicked(_ sender: Any) {
+    @IBAction func actionBarButtonClicked(_ sender: Any) {
         let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil);
         activityController.completionWithItemsHandler = { (type,completed,items,error) in
             self.save();
@@ -107,13 +104,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
     // MARK: Cancel button
-    @IBAction func CancelBarButtonClicked(_ sender: Any) {
+    @IBAction func cancelBarButtonClicked(_ sender: Any) {
         resetView();
     }
 }
 
 // MARK: Keyboard management
-extension ViewController {
+extension MemeMeController {
     
     func subscribeToKeyboardNotifications() {
         
@@ -151,21 +148,12 @@ extension ViewController {
 }
 
 // MARK: Image management and savings
-extension ViewController {
-    
-    struct Meme {
-        var topText: String;
-        var bottomText: String;
-        var originalImage: UIImage;
-        var memedImage: UIImage;
-        
-    }
+extension MemeMeController {
     
     var memedImage: UIImage {
         
         // TODO: Hide toolbar and navbar
-        toggleAny(topToolBar ?? "");
-        toggleAny(bottomToolBar ?? "");
+        hideToolbars(true);
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -174,8 +162,7 @@ extension ViewController {
         UIGraphicsEndImageContext()
         
         // TODO: Show toolbar and navbar
-        toggleAny(topToolBar ?? "");
-        toggleAny(bottomToolBar ?? "");
+        hideToolbars(false);
         
         return memedImage
     }
@@ -190,17 +177,16 @@ extension ViewController {
         topTextField.text = "Top";
         bottomTextField.text = "BOTTOM";
         
-        toggleAny(actionBarButton ?? "");
-        toggleAny(cancelBarButton ?? "");
+        enableToolbarButtons(false)
         
     }
-    func toggleAny(_ sender: Any){
-        if let button = sender as? UIBarButtonItem {
-            button.isEnabled  = !button.isEnabled;
-        } else if let toolBar = sender as? UIToolbar {
-            toolBar.isHidden = !toolBar.isHidden;
-        }
-        
+    func hideToolbars(_ hide: Bool) {
+        topToolBar.isHidden = hide;
+        bottomToolBar.isHidden = hide;
+    }
+    func enableToolbarButtons(_ enable: Bool) {
+        actionBarButton.isEnabled = enable;
+        cancelBarButton.isEnabled = enable;
     }
 }
 
