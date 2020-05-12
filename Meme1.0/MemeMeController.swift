@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemeMeController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MemeMeController: UIViewController {
     
     // MARK: Outlets
     @IBOutlet weak var imageView: UIImageView!
@@ -57,45 +57,17 @@ class MemeMeController: UIViewController, UIImagePickerControllerDelegate, UINav
         // Unsubscribe from receiving keyboard notifications
         unsubscribeFromKeyboardNotifications()
     }
-    // MARK: Configure meme text field
-    func configureMemeTextField(_ textField: UITextField){
-        textField.defaultTextAttributes = memeTextAttributes;
-        textField.textAlignment = .center;
-        
-        //    MARK: Setting up the deleget for the text fields
-        textField.delegate = textFieldDeleget;
-    }
     
     // MARK: Album button
     @IBAction func albumButtonClicked(_ sender: Any) {
         setDeleget(withSourceType: .photoLibrary);
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        dismiss(animated: true, completion: nil);
-        print("After dismiss");
-        guard (info[.originalImage] as? UIImage) != nil else {
-            print("No image found")
-            return
-        }
-        imageView.image = (info[.originalImage] as! UIImage);
-        enableToolbarButtons(true);
-    }
     // MARK: Camera button
     @IBAction func cameraButtonClicked(_ sender: Any) {
         setDeleget(withSourceType: .camera);
     }
-    // Refactor: common functionality between album and camera buttons
-    func setDeleget(withSourceType type: UIImagePickerController.SourceType) {
-        
-        // MARK: Image picker controller
-        let imagePicker = UIImagePickerController();
-        
-        imagePicker.delegate = self;
-        imagePicker.sourceType = type;
-        imagePicker.allowsEditing = true;
-        present(imagePicker, animated: true, completion: nil);
-    }
+    
     // MARK: Action button
     @IBAction func actionBarButtonClicked(_ sender: Any) {
         let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil);
@@ -111,6 +83,33 @@ class MemeMeController: UIViewController, UIImagePickerControllerDelegate, UINav
     @IBAction func cancelBarButtonClicked(_ sender: Any) {
         resetView();
     }
+}
+    // MARK: MemeMeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension MemeMeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    // Refactor: common functionality between album and camera buttons
+    func setDeleget(withSourceType type: UIImagePickerController.SourceType) {
+        
+        // MARK: Image picker controller
+        let imagePicker = UIImagePickerController();
+        
+        imagePicker.delegate = self;
+        imagePicker.sourceType = type;
+        imagePicker.allowsEditing = true;
+        present(imagePicker, animated: true, completion: nil);
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true, completion: nil);
+        print("After dismiss");
+        guard (info[.originalImage] as? UIImage) != nil else {
+            print("No image found")
+            return
+        }
+        imageView.image = (info[.originalImage] as! UIImage);
+        enableToolbarButtons(true);
+    }
+    
 }
 
 // MARK: Keyboard management

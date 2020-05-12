@@ -9,7 +9,7 @@
 import Foundation
 import UIKit;
 
-extension MemeMeController {
+//extension MemeMeController {
     struct Meme {
         var topText: String;
         var bottomText: String;
@@ -18,4 +18,4 @@ extension MemeMeController {
         
     }
 
-}
+//}

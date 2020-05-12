@@ -19,3 +19,15 @@ class TextFieldDeleget: NSObject, UITextFieldDelegate {
         return true;
     }
 }
+
+extension MemeMeController {
+    
+    // MARK: Configure meme text field
+    func configureMemeTextField(_ textField: UITextField){
+        textField.defaultTextAttributes = memeTextAttributes;
+        textField.textAlignment = .center;
+        
+        //    MARK: Setting up the deleget for the text fields
+        textField.delegate = textFieldDeleget;
+    }
+}
