@@ -111,7 +111,6 @@ extension MemeMeController: UIImagePickerControllerDelegate, UINavigationControl
     }
     
 }
-
 // MARK: Keyboard management
 extension MemeMeController {
     
