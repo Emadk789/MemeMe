@@ -88,10 +88,6 @@ class MemeMeController: UIViewController {
         resetView();
         dismiss(animated: true, completion: nil)
     }
-    //    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-    //        print("In dismiss @@@@@@@@@@@@@@@@@@@@@")
-    ////        collectionView.reloadData();
-    //    }
 }
 // MARK: MemeMeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension MemeMeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
