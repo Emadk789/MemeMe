@@ -7,9 +7,9 @@
 //
 
 import UIKit
-
+// MARK: CollectionViewCell: UICollectionViewCell
 class CollectionViewCell: UICollectionViewCell {
-    
+    // MARK: Outlets
     @IBOutlet weak var imageView: UIImageView!
     
     

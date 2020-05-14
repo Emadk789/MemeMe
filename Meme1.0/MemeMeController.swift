@@ -40,14 +40,15 @@ class MemeMeController: UIViewController {
         configureMemeTextField(topTextField);
         configureMemeTextField(bottomTextField);
         
-        // Making bar buttons disabled.
-        enableToolbarButtons(false);
+        // Configring bar buttons disabled.
+        enableToolbarButton(actionBarButton, false);
+        enableToolbarButton(cancelBarButton, true);
         
     }
     // MARK: View will appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
-
+        
         // Subscribing to get keyboard notifications
         subscribeToKeyboardNotifications();
         
@@ -85,13 +86,14 @@ class MemeMeController: UIViewController {
     // MARK: Cancel button
     @IBAction func cancelBarButtonClicked(_ sender: Any) {
         resetView();
+        dismiss(animated: true, completion: nil)
     }
-//    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-//        print("In dismiss @@@@@@@@@@@@@@@@@@@@@")
-////        collectionView.reloadData();
-//    }
+    //    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+    //        print("In dismiss @@@@@@@@@@@@@@@@@@@@@")
+    ////        collectionView.reloadData();
+    //    }
 }
-    // MARK: MemeMeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate
+// MARK: MemeMeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension MemeMeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // Refactor: common functionality between album and camera buttons
@@ -180,11 +182,13 @@ extension MemeMeController {
         // Create the memes
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: memedImage);
         
-//        let object = UIApplication.shared.delegate
-//        let appDelegate = object as! AppDelegate
-//        appDelegate.memes.append(meme)
-          AppDelegate.shared().memes.append(meme);
-        AppDelegate.shared().testArray.append(1);
+        // Saving the meme to the shared variable
+        AppDelegate.shared().memes.append(meme);
+        
+        /*
+         Calling onDoneBlock when MemeMeController is dissmised.
+         Also, pass the controle to caller controller.
+         **/
         onDoneBlock!(true);
     }
     
@@ -203,6 +207,9 @@ extension MemeMeController {
     func enableToolbarButtons(_ enable: Bool) {
         actionBarButton.isEnabled = enable;
         cancelBarButton.isEnabled = enable;
+    }
+    func enableToolbarButton(_ button: UIBarButtonItem, _ enable: Bool) {
+        button.isEnabled = enable;
     }
 }
 

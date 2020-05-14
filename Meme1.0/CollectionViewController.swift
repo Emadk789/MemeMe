@@ -8,80 +8,51 @@
 
 import UIKit
 
+// MARK: CollectionViewController: UICollectionViewController
 class CollectionViewController: UICollectionViewController {
-//    @IBOutlet private weak var collectionView2: UICollectionView!;
+    
+    
+    // MARK: Outlet
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
+    // MARK: Shared Variable
     var memes: [Meme]! {
-        //        let object = UIApplication.shared.delegate
-        //        let appDelegate = object as! AppDelegate
-        //        return appDelegate.memes
         get{
             AppDelegate.shared().memes;
         }
-        set {
-            //            self.memes = x;
-        }
-        
+        set {   }
     };
-    
-//    MemeMeController.onDoneBlock = { result in
-//    collectionView.reloadData();
-//    }
-    
+    // MARK: - View did load
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
         
-        print("I am in CollectionView didLoad");
-                let space:CGFloat = 3.0
-                print(view.frame.size.width);
-
-                let dimension = (view.frame.size.width - (2 * space)) / 3.0
-                print(dimension);
-                flowLayout.minimumInteritemSpacing = space
-                flowLayout.minimumLineSpacing = space
-                flowLayout.itemSize = CGSize(width: dimension, height: dimension)
-        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout;
-        layout.itemSize = CGSize(width: dimension, height: dimension);
+        let space:CGFloat = 3.0;
         
+        let dimension = (view.frame.size.width - (2 * space)) / 3.0;
+        flowLayout.minimumInteritemSpacing = space;
+        flowLayout.minimumLineSpacing = space;
+        flowLayout.itemSize = CGSize(width: dimension, height: dimension);
     }
+    // MARK: View will appear
     override func viewWillAppear(_ animated: Bool) {
-        print("I am in CollectionView willAppear");
         collectionView.reloadData();
     }
-    
+    // MARK: - numberOfItemsInSection
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("memes in numberOfItemsInSection \(memes.count)");
-        if memes.count == 1{
-            return  memes.count + 5;
-        } else {
-            return  memes.count;
-        }
+        return  memes.count;
     }
-    
-    //    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    //
-    //    }
+    // MARK: cellForItemAt
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if memes.count == 1{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell;
-                   
-                   let cellContent = memes[0] ;
-                   
-                   cell.imageView.image = cellContent.memedImage;
-                   
-                   return cell;
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell;
-                   
-                   let cellContent = memes[indexPath.row] ;
-                   
-                   cell.imageView.image = cellContent.memedImage;
-                   
-                   return cell;
-        }
-       
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell;
+        let cellContent = memes[indexPath.row] ;
+        cell.imageView.image = cellContent.memedImage;
+        
+        return cell;
+        
     }
+    // MARK: - Actions
+    
+    // MARK: AddButtonClicked
     @IBAction func AddButtonClicked(_ sender: Any) {
         let memeMeController = storyboard?.instantiateViewController(withIdentifier: "MemeMeController") as! MemeMeController;
         memeMeController.onDoneBlock = { result in
@@ -92,14 +63,4 @@ class CollectionViewController: UICollectionViewController {
             
         }
     }
-//dismi
-    //    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-//        print("In dismiss @@@@@@@@@@@@@@@@@@@@@")
-//        collectionView.reloadData();
-//    }
-    
-    
-    
-    
-    
 }

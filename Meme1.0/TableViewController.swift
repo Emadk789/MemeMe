@@ -7,75 +7,48 @@
 //
 
 import UIKit
-
+//MARK: TableViewController: UITableViewController
 class TableViewController: UITableViewController{
-   
     
-    
+    // MARK: Shared Variable
     var memes: [Meme]! {
-//        let object = UIApplication.shared.delegate
-//        let appDelegate = object as! AppDelegate
-//        return appDelegate.memes
         get{
-           AppDelegate.shared().memes;
+            AppDelegate.shared().memes;
         }
-        set {
-//            self.memes = x;
-        }
+        set {   }
         
     }
+    // MARK: - View will appear
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    // MARK: - numberOfRowsInSection
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return memes.count;
+    }
+    // MARK: cellForRowAt
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell")!;
+        let cellContent = memes[indexPath.row];
+        cell.imageView?.image = cellContent.memedImage;
+        cell.textLabel?.text = cellContent.topText + " ... " + cellContent.bottomText;
+        
+        return cell;
+    }
+    // MARK: - Actions
     
-    var testArray: [Int]   {
-        get {
-            AppDelegate.shared().testArray;
-        } set {
+    // MARK: addButtonClicked
+    @IBAction func addButtonClicked(_ sender: Any) {
+        let memeMeController = storyboard?.instantiateViewController(withIdentifier: "MemeMeController") as! MemeMeController;
+        memeMeController.onDoneBlock = { result in
+            self.tableView.reloadData();
+        }
+        present(memeMeController, animated: true) {
+            self.tableView.reloadData();
             
         }
-    };
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("hay there");
-
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-//        reloadInputViews();
-        print("View Will Appear%%%%%%%%%%%%%%%%%%%");
-        memes = AppDelegate.shared().memes;
-        testArray = AppDelegate.shared().testArray;
-        print(memes ?? "Its empty");
-        tableView.reloadData()
         
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("How many Times you enter Here???????????????????????????");
-//        return memes.count;
-        return memes.count;
-       }
-       
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("and Here###########");
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell")!;
-//        let cellContet = testArray[indexPath.row];
-        let cellContent = memes[indexPath.row];
-//        cell.textLabel?.text = String(cellContet);
-        cell.imageView?.image = cellContent.memedImage;
-        return cell;
-       }
-    @IBAction func addButtonClicked(_ sender: Any) {
-            let memeMeController = storyboard?.instantiateViewController(withIdentifier: "MemeMeController") as! MemeMeController;
-            memeMeController.onDoneBlock = { result in
-                self.tableView.reloadData();
-            }
-            present(memeMeController, animated: true) {
-                self.tableView.reloadData();
-                
-            }
-
-    }
     
-
 }
