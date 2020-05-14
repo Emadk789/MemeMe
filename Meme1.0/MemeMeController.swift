@@ -20,6 +20,8 @@ class MemeMeController: UIViewController {
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var bottomToolBar: UIToolbar!
     
+    var onDoneBlock : ((Bool) -> Void)?
+    
     // MARK: Text field deleget
     let textFieldDeleget = TextFieldDeleget();
     
@@ -72,6 +74,7 @@ class MemeMeController: UIViewController {
     @IBAction func actionBarButtonClicked(_ sender: Any) {
         let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil);
         activityController.completionWithItemsHandler = { (type,completed,items,error) in
+            print("here it should get dismised.")
             if(completed){
                 self.save();
             }
@@ -83,6 +86,10 @@ class MemeMeController: UIViewController {
     @IBAction func cancelBarButtonClicked(_ sender: Any) {
         resetView();
     }
+//    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+//        print("In dismiss @@@@@@@@@@@@@@@@@@@@@")
+////        collectionView.reloadData();
+//    }
 }
     // MARK: MemeMeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension MemeMeController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -172,6 +179,13 @@ extension MemeMeController {
     func save() {
         // Create the memes
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: memedImage);
+        
+//        let object = UIApplication.shared.delegate
+//        let appDelegate = object as! AppDelegate
+//        appDelegate.memes.append(meme)
+          AppDelegate.shared().memes.append(meme);
+        AppDelegate.shared().testArray.append(1);
+        onDoneBlock!(true);
     }
     
     func resetView(){
