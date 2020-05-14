@@ -130,6 +130,38 @@
             </objects>
             <point key="canvasLocation" x="1360.8" y="473.6131934032984"/>
         </scene>
+        <!--Meme Me Detail View Controller-->
+        <scene sceneID="yA3-DB-93M">
+            <objects>
+                <viewController storyboardIdentifier="MemeMeDetailViewController" id="nTA-2l-x0o" customClass="MemeMeDetailViewController" customModule="Meme1_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wX4-sn-yDx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="euV-hV-0UZ">
+                                <rect key="frame" x="0.0" y="240" width="375" height="187.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="euV-hV-0UZ" secondAttribute="height" multiplier="3:1.5" id="Owq-Pt-HLL"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="euV-hV-0UZ" firstAttribute="leading" secondItem="xS5-wW-fR4" secondAttribute="leading" id="9rf-mB-3pe"/>
+                            <constraint firstItem="euV-hV-0UZ" firstAttribute="centerY" secondItem="wX4-sn-yDx" secondAttribute="centerY" id="Xse-hE-xnx"/>
+                            <constraint firstItem="euV-hV-0UZ" firstAttribute="trailing" secondItem="xS5-wW-fR4" secondAttribute="trailing" id="iS9-61-HA8"/>
+                            <constraint firstItem="euV-hV-0UZ" firstAttribute="centerX" secondItem="wX4-sn-yDx" secondAttribute="centerX" id="lOs-Pm-Hwb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xS5-wW-fR4"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="euV-hV-0UZ" id="w91-Ie-oq0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dTq-7D-VfR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2301.5999999999999" y="192.05397301349328"/>
+        </scene>
         <!--Meme Me Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -241,7 +273,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2415" y="134"/>
+            <point key="canvasLocation" x="3246" y="-304"/>
         </scene>
         <!--Table-->
         <scene sceneID="06K-eg-qfz">

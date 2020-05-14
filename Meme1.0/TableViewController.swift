@@ -35,6 +35,12 @@ class TableViewController: UITableViewController{
         
         return cell;
     }
+    // MARK: didSelectRowAt
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "MemeMeDetailViewController") as! MemeMeDetailViewController;
+        vc.meme = memes[indexPath.row];
+        navigationController?.pushViewController(vc, animated: true);
+    }
     // MARK: - Actions
     
     // MARK: addButtonClicked

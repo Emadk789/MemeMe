@@ -50,6 +50,12 @@ class CollectionViewController: UICollectionViewController {
         return cell;
         
     }
+    // MARK: didSelectItemAt
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "MemeMeDetailViewController") as! MemeMeDetailViewController;
+            vc.meme = memes[indexPath.row];
+            navigationController?.pushViewController(vc, animated: true);
+    }
     // MARK: - Actions
     
     // MARK: AddButtonClicked
