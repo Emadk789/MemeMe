@@ -1,4 +1,4 @@
-# MemeMe1.0
+# MemeMe
 An app that allows the user to create memes.
 
 # Project Overview
